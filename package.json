@@ -16,10 +16,9 @@
     "url": "https://github.com/garrettwiththepegleg/portfolioNORUBY/issues"
   },
   "homepage": "https://github.com/garrettwiththepegleg/portfolioNORUBY#readme",
-  "description": "",
   "dependencies": {
+    "express": "^5.1.0",
     "serve": "^14.2.4"
-  }
-  
-
+  },
+  "description": ""
 }
