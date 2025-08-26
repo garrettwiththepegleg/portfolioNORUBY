@@ -1,18 +1,370 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Full Page Scroll Demo</title>
-  <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-      font-family: Arial, sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jittery Chalk Text</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="output.css">
 
-    /* ===== Method 1: CSS Scroll Snap ===== */
-    .scroll-container {
+    <style>
+        @font-face {
+            font-family: 'EraserDust';
+            src: url('EraserRegular.ttf') format('truetype');
+                 
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap; /* Optional: controls how font is displayed while loading */
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+    margin: 0;
+    padding: 0;
+    background: url('test.jpg');
+    font-family: 'EraserDust';
+}
+
+
+        .banner {
+    width: 100%;            /* full width */
+    height: 20vh;           /* or whatever banner height you want */
+    position: relative;      /* so children are positioned inside */
+    display: flexbox;           /* center content inside */
+    justify-content: center;
+    align-items: center;
+}
+
+        
+        .chalkboard {
+  position: relative;
+  width: 100%;             /* stretch full width of the page */
+  height: 100vh;           /* give it a "banner/header" height */
+  border-radius: 0;        /* remove rounding for a real header feel */
+  
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+.chalkboard2 {
+  position: relative;
+  width: 100%;             /* stretch full width of the page */
+  height: 100vh;           /* give it a "banner/header" height */
+  border-radius: 0;        /* remove rounding for a real header feel */
+  
+  
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+
+        
+        .chalkboard:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(transparent 95%, rgba(255,255,255,0.03) 96%),
+                linear-gradient(90deg, transparent 95%, rgba(255,255,255,0.03) 96%);
+            background-size: 20px 20px;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .jittery {
+            
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            
+            white-space: nowrap;
+        }
+        
+.jittery span {
+    animation: jitter 1200ms steps(1, end) infinite;
+    display: inline-block;
+    /* Chalk texture effect */
+    background: url('https://st2.depositphotos.com/1006053/6881/i/950/depositphotos_68817043-stock-photo-chalk-texture.jpg');
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.1);
+    filter: contrast(1.2) brightness(1.1);
+    font-size: inherit;
+    
+}
+.jittery img {
+  
+  animation: jitter 1200ms steps(1, end) infinite; /* give it the jitter too */
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  color: inherit !important;
+  display: flex;
+  
+}
+@keyframes jitter { 
+    0% {
+        transform: translate(0.5px, 0.5px) rotate(0.25deg);
+    }
+    10% {
+        transform: translate(-0.5px, -1px) rotate(-0.25deg);
+    }
+    20% {
+        transform: translate(-1px, 0px) rotate(0.75deg);
+    }
+    30% {
+        transform: translate(1px, 1px) rotate(0deg);
+    }
+    40% {
+        transform: translate(0.5px, -0.5px) rotate(0.25deg);
+    }
+    50% {
+        transform: translate(-0.5px, 1px) rotate(-0.25deg);
+    }
+    60% {
+        transform: translate(-1px, 0.5px) rotate(0deg);
+    }
+    70% {
+        transform: translate(1px, 0.5px) rotate(-0.25deg);
+    }
+    80% {
+        transform: translate(-0.5px, -0.5px) rotate(0.25deg);
+    }
+    90% {
+        transform: translate(0.5px, 1px) rotate(0deg);
+    }
+    100% {
+        transform: translate(0.5px, -1px) rotate(-0.25deg);
+    }
+}
+        
+        
+        
+        .instructions {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #666;
+            font-size: 1rem;
+            font-family: Arial, sans-serif;
+        }
+        
+        /* Flickering effect for the chalkboard */
+        .chalkboard:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            opacity: 0;
+            pointer-events: none;
+            animation: flicker 0.2s infinite;
+        }
+        
+        @keyframes flicker {
+            0%, 100% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.1;
+            }
+        }
+        .blacklight {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(
+                circle,
+                rgba(138, 43, 226, 0.7) 0%,
+                rgba(75, 0, 130, 0.2) 40%,
+                rgba(0, 0, 0, 0) 70%
+            );
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            mix-blend-mode: screen;
+            box-shadow: 0 0 20px 5px rgba(138, 43, 226, 0.5);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .hidden-message {
+            padding: 20px;
+            
+            
+            font-size: 1.5rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            
+        }
+
+        
+  .frame {
+    position: relative;
+    
+    background: var(--bg); /* ensures content is completely hidden outside spotlight */
+    overflow: hidden;
+    
+  }
+
+  /* The content to reveal (can be any elements, not just images) */
+  .content {
+    width: 100%;
+    height: 100%;
+  }
+
+  .content img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Overlay method (preferred): a solid black layer with a moving mask hole */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: url('test.jpg');           /* opaque so everything is hidden outside the hole */
+    pointer-events: none;       /* don't block the mouse */
+    /* Start fully hidden (hole size 0). JS will update mask position/size. */
+    mask-image: radial-gradient(circle 0px at center, transparent 99%, black 100%);
+    -webkit-mask-image: radial-gradient(circle 0px at center, transparent 99%, black 100%);
+  }
+
+  .jittery-img {
+  width: 20%;
+  height: 90%;
+  display: flex;
+  animation: jitter 1200ms steps(1, end) infinite;
+}
+.jittery-small {
+    font-size: clamp(.75rem,2vw,4rem);
+}
+
+.jittery-big {
+    font-size: clamp(2rem,8vw,4rem);
+}
+
+.about{
+    display: inline-block;       /* allow max-width to apply */
+    max-width: 50vw;             /* or whatever width you want */
+    white-space: normal;         /* allow wrapping at spaces */
+    overflow-wrap: normal;       /* don’t break words */
+    word-break: keep-all;   
+}
+.arrow-row {
+    display: flex;
+   /* place items in a row */
+    justify-content: center;  /* center the row */
+    align-items: center;
+    gap: 15vw;
+    min-width: 0;
+    max-height: 15vh;
+    
+    
+}
+.download-row {
+    display: flex;
+   /* place items in a row */
+    justify-content: center;  /* center the row */
+    align-items: center;
+    gap: 3vw;
+    min-width: 0;
+    max-height: 15vh;
+    
+    
+}
+.first-row {
+    display: flex;   /* place items in a row */
+    justify-content: center;  /* center the row */
+    align-items: center;
+    
+}
+.second-row {
+    display: flex;   /* place items in a row */
+    justify-content: center;  /* center the row */
+    align-items: center;
+    
+}
+
+.wrapper {
+    position: relative;   /* container for absolute positioning */
+    width: 75%;           /* adjust as needed */
+    max-width: 600px;     /* optional: limit max size */
+    bottom: -1vh;
+    right: 2vw;
+    margin: 0 auto; 
+    z-index: 3;      /* center the container */
+}
+
+.fixed {
+    z-index: 5;
+    position: absolute;
+ 
+  
+}
+.textrow {
+   display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15vw;
+  margin-top: 2vh; 
+}
+.spooky-button {
+    padding-top: 0px;
+  border: 15px solid transparent;        /* border thickness */
+  border-image: url('images.png') 30 round; /* image as border */
+                /* slices the image */
+  background: none;              /* button background */
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 5000;
+  font: inherit;
+  width: 15vw;
+  height: 15vh;
+  text-align: left;
+  display: flex;
+  padding: 0px;
+}
+.spooky-button .hidden-message {
+    display: flex; /* ensure content fills container */
+    text-align: left;
+    justify-content: left;
+    align-items: left;
+}
+.font-wrapper {
+font-size: clamp(.5rem,2vw,4rem);
+text-align: left;
+}
+.page {
+      height: 100vh;
+      scroll-snap-align: start;
+      color: white;
+    }
+.scroll-container {
       height: 100vh;
       overflow-y: scroll;
       scroll-snap-type: y mandatory;
@@ -20,130 +372,482 @@
       scrollbar-width: none; 
     }
 
-    .page {
-      height: 100vh;
-      scroll-snap-align: start;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 3rem;
-      color: black;
-    }
-
-    .page2 {
-      height: 100vh;
-      scroll-snap-align: start;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 3rem;
-      color: black;
-      display: none;
-      background-color: black;
-    }
-    .page3 {
-      height: 100vh;
-      scroll-snap-align: start;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 3rem;
-      color: black;
-      display: none;
-      background-color: #04AA6D;
-    }
-
-    .my-button {
-  background-color: #04AA6D; /* Green background */
-  color: white; /* White text */
-  padding: 10px 20px; /* Padding inside the button */
-  border: none; /* No border */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Changes cursor to a pointer on hover */
-  font-size: 16px; /* Font size */
-  text-align: center; /* Center text */
-  text-decoration: none; /* Remove underline for anchor tags */
-  display: inline-block; /* Allows setting width/height and padding/margin */
-}
-.my-button2 {
-  background-color: #04AA6D; /* Green background */
-  color: white; /* White text */
-  padding: 10px 20px; /* Padding inside the button */
-  border: none; /* No border */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Changes cursor to a pointer on hover */
-  font-size: 16px; /* Font size */
-  text-align: center; /* Center text */
-  text-decoration: none; /* Remove underline for anchor tags */
-  display: inline-block; /* Allows setting width/height and padding/margin */
+    .img-outline-btn {
+  background: transparent; /* transparent background */
+  color: white; /* text color */
+  
+  border: 10px solid transparent; /* must match border-image size */
+  border-image: url('images.png') 30 round; /* your outline image */
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
 }
 
-    .page:nth-child(1) { background: #1abc9c; }
-    .page:nth-child(2) { background: #3498db; }
-    .page:nth-child(3) { background: #9b59b6; }
-    .page:nth-child(4) { background: #e67e22; }
+/* From Uiverse.io by faxriddin20 */ 
+.download-btn {
+  
+  background-color: transparent;
+  width: 50px;
+  height: 50px;
+  border-radius: 30px;
+  position: relative;
+  z-index: 1;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  
+}
+.download-btn svg {
+  width: 25px;
+  height: 25px;
+  transition: all 0.3s ease;
+}
 
-  </style>
+.download-btn svg:hover {
+    fill: #7fff00;
+    
+}
+
+.download-btn:hover {
+box-shadow: 0 0 10px #7fff00, 0 0 20px #7fff00;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 2rem auto;
+  font-family: 'EraserDust', sans-serif;
+  z-index: 3;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 10px;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  background: rgba(0,0,0,0.1);
+  color: #fff;
+  font-size: 1rem;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #7fff00;
+}
+
+.contact-form button {
+  padding: 10px 20px;
+  background: transparent;
+  border: 2px solid #7fff00;
+  color: #7fff00;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.contact-form button:hover {
+  background: #7fff00;
+  color: #000;
+}
+.resume-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+ padding-top: 20vh;
+}
+
+.resume-download a {
+  text-decoration: none;
+  color: #7fff00;
+  border: 2px solid #7fff00;
+  
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.resume-download a:hover {
+  background-color: #7fff00;
+  color: #000;
+  box-shadow: 0 0 10px #7fff00, 0 0 20px #7fff00;
+}
+
+    </style>
 </head>
 <body>
+    <div class = "scroll-container">
+    <section class = "page">
+    <div class ="banner">
+    <div class="chalkboard">
+        <img src="1731739545451.jpg" alt="Arrow" style="z-index: 3; height: 20vh; width: auto;">
+        <div class = "first-row">
+        <span class="jittery jittery-big">Welcome!</span>
+        </div>
+        <div class = "second-row">
+        <span class ="jittery jittery-small">
+            My name is Collin and this is my Portfolio!
+        </span>
+        </div> 
+        <div class="hidden-message" id="hiddenMessage">
+        (Inspired by Phasmophobia!)
+    </div>
+    <div class="arrow-row">
+         <img src="arrow.png" alt="Arrow" class="jittery-img" style="z-index: 3;  rotate: 90deg;">
+       <img src="arrow.png" alt="Arrow" class="jittery-img" style="z-index: 3;   rotate: 90deg;"> 
+        <img src="arrow.png" alt="Arrow" class="jittery-img" style="z-index: 3;   rotate: 90deg;">  
+        </div>
+        
+    </div>
+    </div>
+    
 
-  <!-- ===== Method 1: CSS Scroll Snap ===== -->
-  <div class="scroll-container">
-    <section class="page">Page 1
-        <button class="my-button">Click Me</button>
-        <button class="my-button2">gotojail</button>
+     
+    <div class="blacklight" id="blacklight"></div>
+    <div>
+  
+    
+      <!-- Replace with any hidden elements you want to reveal -->
+      <img src="testimg.jpg" alt="Description of image" style="width:10%; height:auto;">
+      <img src="obaki.png" alt="Description of image" style="width:10%; height:auto;">
+    
+    
+  
+  
+
+    
+    </div>
+    </section> 
+    <section class="page">
+        
+    <div class="chalkboard2">
+        <span class="jittery jittery-big">About Me!</span>
+        <p class ="about" style="z-index: 5; font-size: clamp(.5rem,1.3vw,3rem);">I'm a Software Engineer that graduated from UC Berkeley
+            that loves to tackle any and all kinds of problems. I've built Full-Stack Applications, Web Services and APIs, ML Models , Data Analytic Dashboards, and more. <br><br>
+            Truth is, I love to program and I've known this since I took my first coding class in High School. I love being challenged and it's a goal to push the limitations of the 
+            software I use because if I run into a wall that gives me the opportunity to add and optimize the current existing frameworks. <br>
+            <br> Outside of programming I love sports, games, and film. I particularly love easter eggs (which you may have noticed some already) as the thrill of mystery and challenge goes above and beyond just coding. 
+        </p><div class="arrow-row" style="gap: 5vw">
+         
+        
+    
+        <img src="bill.png" alt="Description of image" style="width:10%; height:auto;">
+        
+        <img src="arrow.png" alt="Arrow" class="jittery-img" style="z-index: 3; height: 50%; width: auto;  rotate: 90deg;">
+        <div class="hidden-message" id="hiddenMessage">
+        CAN'T CAN'T <br>
+        RUN RUN 
+    </div>
+        <img src="arrow.png" alt="Arrow" class="jittery-img" style="z-index: 3; height: 50%; width: auto;  rotate: 90deg;"> 
+        
+        
+    <img src="slender.png" alt="Description of image" style="width:10%; height:auto;">
+    </div>  
+    </div>  
+    
     </section>
-    <section class="page">Page 2
-        <h2>Phasmophobia Journal</h2>
+    <section class="page" style="overflow: hidden;">
+        
+    <div class="chalkboard2" >
+        <div class="container" id="container" style=" z-index: 3; position: absolute;"></div>
+        <span class="jittery jittery-big">Projects</span>
+        <p class ="about" style="z-index: 5; font-size: clamp(.5rem,1.8vw,4rem);"> A Cryptographically Secure and Signed Camera App with Public Verification 
+        </p>
+        <p class ="about" style="z-index: 5; font-size: clamp(.5rem,1.3vw,3rem);"> This app is designed to give authenticity to any Photo, Video, and Audio taken with the App, by sending media data to a secure server where a watermark is burned into it which is then 
+            hashed and signed and posted to a public database (blockchain is in development) with a visual code that allows any viewer to easily trace and check authenticity. Please watch the video for a complete breakdown of the system design and feel free to try it out below!
+        </p>
+       <!-- From Uiverse.io by faxriddin20 --> 
+        <div class="download-row">
+         <img src="arrow.png" alt="Arrow" class="jittery-img" style="z-index: 3; width: 90%;">
+       
+<button class="download-btn" style="z-index: 0;">
+  <svg fill="#fff" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+	 width="30%" height="30%" viewBox="0 0 260 205" enable-background="new 0 0 260 205" xml:space="preserve" >
+<path d="M184.588,75l-54.683,72.879L75.412,75H112V2h36v73H184.588z M258,75h-36v92H38V75H2v128h256V75z"/>
+</svg>
+</button>
+</div>
 
-            
-            <iframe 
-                src="https://localhost-production.up.railway.app" 
-                title="Embedded React Application"
-                width="100%" 
-                height="500px" 
+
+        
+    
+    </div>
+</section>
+<section class="page" >
+        
+    <div class="chalkboard2" >
+        <div class="container" id="container" style=" z-index: 3; position: absolute;"></div>
+        <span class="jittery jittery-big">Projects</span>
+        <p class ="about" style="z-index: 5; font-size: clamp(.5rem,1.8vw,4rem);"> Prospect to Professional Comparison Tool
+        </p>
+        <p class ="about" style="z-index: 5; font-size: clamp(.5rem,1.3vw,3rem);"> Analyzing Prospects is a billion dollar industry in of itself and the casual audience doesn't have the same resources
+            as the club house does. This tool seeks to find Professional players with similar advanced stats and tendencies so the next time you wonder if your team's catcher prospect will be more like Cal Raleigh or Dillon Dingler. 
+        </p>
+       <!-- From Uiverse.io by faxriddin20 --> 
+         <iframe 
+                src="https://www.collindavis.online/" 
+        
+                 
+                height="30%"
+                width="30%"
                 frameborder="0"
-                style="border: none;"
+                style="border: none; z-index: 5000; scrollbar-width: none;-ms-overflow-style: none; scrolling: none"
             ></iframe>
         
+        <span class="jittery jittery-small">My Resume </span> 
+        <img src="arrow.png" alt="Arrow" class="jittery-img" style="z-index: 3; height: 5%; width: auto;  rotate: 90deg;">
 
-    </section>
-    <section class="page2">Page 3
-      
-    </section>
-    <section class="page3">Page 4</section>
+        
+    
+    </div>
+</section>
+<section class="page">
+  <div class="chalkboard2">
+    
+
+    <div class="resume-container">
+      <!-- PDF Embed -->
+      <img src="Collin.png" alt="Collin Davis Resume" class="resume-img" style="width: 100%; height: 80%; z-index: 3;">
+
+      <div class="resume-download" style="z-index: 3;">
+        <a href="resume.pdf" download class="img-outline-btn">Download PDF</a>
+      </div>
+    </div>
   </div>
+</section>
 
-  <!-- ===== Method 2: JavaScript Controlled Scroll ===== -->
-  <!--
-  <section class="page">Page 1</section>
-  <section class="page">Page 2</section>
-  <section class="page">Page 3</section>
-  <section class="page">Page 4</section>
+<section class="page">
+  <div class="chalkboard2">
+    <span class="jittery jittery-big">Contact Me</span>
+    
+    <form id="contactForm" class="contact-form">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
 
-  
-  -->
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
 
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+
+      <button type="submit">Send</button>
+      <p id="formStatus"></p>
+    </form>
+    <span class="jittery jittery-big">Bonus Below</span>
+  </div>
+</section>
+
+    <section class="page">
+        
+    <div class="chalkboard2">
+        <iframe 
+                src="https://localhost-production.up.railway.app" 
+                title="Embedded React Application"
+                 
+                height="100%"
+                width="100%"
+                frameborder="0"
+                style="border: none; z-index: 2000; scrollbar-width: none;-ms-overflow-style: none;"> </iframe>
+    </div>  
+    </section>
+    </div>  
+    <div class="overlay" id="overlay"></div>
 </body>
-<script>
-    const button = document.querySelector(".my-button")
-    const page = document.querySelector(".page2")
-    const button2 = document.querySelector(".my-button2")
-    const page2 = document.querySelector(".page3")
-    button.addEventListener("click", function() {
-        page.style.display = "block";
-        page.scrollIntoView({ behavior: 'smooth' });
-        if (page2.style.display !== "none") {
-            page2.style.display = "none";
-        };
+    <script>
+        const container = document.getElementById("container");
 
-    } );
-    button2.addEventListener("click", function() {
-        page2.style.display = "block";
-        page2.scrollIntoView({ behavior: 'smooth' });
-        if (page.style.display !== "none") {
-            page.style.display = "none";
-        };
-    } );
-</script>
+  for (let i = 0; i < 10; i++) {
+    const circleContainer = document.createElement("div");
+    circleContainer.classList.add("circle-container");
+
+    const circle = document.createElement("div");
+    circle.classList.add("circle");
+
+    circleContainer.appendChild(circle);
+    container.appendChild(circleContainer);
+  }
+         const RADIUS = 60; // spotlight radius in px
+
+  const frame = document.getElementById('frame');
+  const content = document.getElementById('content');
+  const overlay = document.getElementById('overlay');
+
+  // Feature detect CSS mask-image (for the overlay hole). Fallback to clip-path if not supported.
+  const supportsMask =
+    CSS.supports('mask-image', 'radial-gradient(circle 10px at 10px 10px, transparent 99%, black 100%)') ||
+    CSS.supports('-webkit-mask-image', 'radial-gradient(circle 10px at 10px 10px, transparent 99%, black 100%)');
+
+  if (!supportsMask) {
+    // Hide overlay, use clip-path to reveal content instead
+    overlay.style.display = 'none';
+    content.style.clipPath = 'circle(0px at 50% 50%)';
+    content.style.willChange = 'clip-path';
+  }
+
+  function updateSpotlight(clientX, clientY) {
+  if (supportsMask) {
+    const mask =
+      `radial-gradient(circle ${RADIUS}px at ${clientX}px ${clientY}px, transparent 99%, black 100%)`;
+    overlay.style.maskImage = mask;
+    overlay.style.webkitMaskImage = mask;
+  } else {
+    content.style.clipPath = `circle(${RADIUS}px at ${clientX}px ${clientY}px)`;
+  }
+}
+
+  function resetSpotlight() {
+    if (supportsMask) {
+      const mask = `radial-gradient(circle 0px at center, transparent 99%, black 100%)`;
+      overlay.style.maskImage = mask;
+      overlay.style.webkitMaskImage = mask;
+    } else {
+      content.style.clipPath = 'circle(0px at 50% 50%)';
+    }
+  }
+
+  // Mouse
+  document.addEventListener('mousemove', (e) => updateSpotlight(e.clientX, e.clientY));
+  document.addEventListener('mouseleave', resetSpotlight);
+
+  // Touch (for mobile)
+  document.addEventListener('touchmove', (e) => {
+    const t = e.touches[0];
+    if (t) updateSpotlight(t.clientX, t.clientY);
+  }, { passive: true });
+  document.addEventListener('touchend', resetSpotlight);
+  document.addEventListener('touchcancel', resetSpotlight);
+      $(function(){
+    $('.jittery').each(function(){  // Process each line separately
+        var $this = $(this);
+        var fontSize = $this.css('font-size'); // respect container font size
+
+        var aText = $this.text().split('');
+        var letters = '';
+
+        for(var i = 0; i < aText.length; i++){
+        if (aText[i] === ' ') {
+            letters += '<span style="width:0.5em;">&nbsp;</span>'; // preserve space
+        } else {
+            letters += '<span>'+aText[i]+'</span>';
+        }
+    }
+
+        $this.empty().append(letters);
+
+        // Apply font size to each letter span to inherit line size
+        $this.find('span').css('font-size', fontSize);
+    });
+});
+
+
+     const blacklight = document.getElementById('blacklight');
+        const hiddenMessage = document.getElementById('hiddenMessage');
+        
+       document.addEventListener('mousemove', function(e) {
+    blacklight.style.left = e.clientX + 'px';
+    blacklight.style.top = e.clientY + 'px';
+    blacklight.style.opacity = '1';
+
+    // Loop through ALL hidden messages
+    document.querySelectorAll('.hidden-message').forEach(msg => {
+        const rect = msg.getBoundingClientRect();
+        const isOver = (
+            e.clientX >= rect.left &&
+            e.clientX <= rect.right &&
+            e.clientY >= rect.top &&
+            e.clientY <= rect.bottom
+        );
+
+        if (isOver) {
+            msg.style.color = '#7fff00';
+            msg.style.textShadow = '0 0 10px #7fff00, 0 0 20px #7fff00';
+        } else {
+            msg.style.color = '#0a0a1a';
+            msg.style.textShadow = 'none';
+            msg.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.2)';
+            msg.style.borderColor = '#0a0a1a';
+        }
+    });
+
+document.querySelectorAll('.download-btn').forEach(msg => {
+        const rect = msg.getBoundingClientRect();
+        const isOver = (
+            e.clientX >= rect.left &&
+            e.clientX <= rect.right &&
+            e.clientY >= rect.top &&
+            e.clientY <= rect.bottom
+        );
+
+        if (isOver) {
+            msg.style.color = '#7fff00';
+            msg.style.boxShadow = '0 0 10px #7fff00, 0 0 20px #7fff00';
+        } else {
+            msg.style.color = '#0a0a1a';
+            msg.style.textShadow = 'none';
+            msg.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.2)';
+            msg.style.borderColor = '#0a0a1a';
+        }
+    });
+
+    document.querySelectorAll('.download-btn svg').forEach(msg => {
+        const rect = msg.getBoundingClientRect();
+        const isOver = (
+            e.clientX >= rect.left &&
+            e.clientX <= rect.right &&
+            e.clientY >= rect.top &&
+            e.clientY <= rect.bottom
+        );
+
+        if (isOver) {
+            msg.style.fill = '#7fff00';
+            
+        } else {
+            msg.style.fill =  '#0a0a1a';
+            msg.style.textShadow = 'none';
+            msg.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.2)';
+            msg.style.borderColor = '#0a0a1a';
+        }
+    });
+});
+
+        
+        // Hide default cursor
+        document.addEventListener('mouseenter', function() {
+            document.body.style.cursor = 'none';
+        });
+        
+        document.addEventListener('mouseleave', function() {
+            document.body.style.cursor = 'default';
+            blacklight.style.opacity = '0';
+        });
+        function wrapJittery() {
+  $('.jittery').each(function(){  
+    var $this = $(this);
+    var fontSize = $this.css('font-size');
+
+    var aText = $this.text().replace(/<[^>]+>/g, '').split(''); // remove old spans
+    var letters = '';
+
+    for(var i = 0; i < aText.length; i++){
+      if (aText[i] === ' ') {
+        letters += '<span style="width:0.5em;">&nbsp;</span>';
+      } else {
+        letters += '<span>'+aText[i]+'</span>';
+      }
+    }
+
+    $this.empty().append(letters);
+    $this.find('span').css('font-size', fontSize);
+  });
+}
+
+// Initial call
+$(wrapJittery);
+
+// Re-wrap on resize
+$(window).on('resize', wrapJittery);
+
+    </script>
+</body>
 </html>

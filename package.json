@@ -1,0 +1,25 @@
+{
+  "name": "css",
+  "version": "1.0.0",
+  "main": "index.090e2342.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garrettwiththepegleg/portfolioNORUBY.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/garrettwiththepegleg/portfolioNORUBY/issues"
+  },
+  "homepage": "https://github.com/garrettwiththepegleg/portfolioNORUBY#readme",
+  "description": "",
+  "dependencies": {
+    "serve": "^14.2.4"
+  }
+  
+
+}
