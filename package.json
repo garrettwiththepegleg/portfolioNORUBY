@@ -18,6 +18,7 @@
   "homepage": "https://github.com/garrettwiththepegleg/portfolioNORUBY#readme",
   "dependencies": {
     "express": "^5.1.0",
+    "node-fetch": "^2.7.0",
     "serve": "^14.2.4"
   },
   "description": ""

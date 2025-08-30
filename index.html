@@ -264,6 +264,9 @@
     font-size: clamp(.75rem,2vw,4rem);
 }
 
+.jittery-tiny {
+    font-size: clamp(.25rem,1vw,4rem);
+}
 .jittery-big {
     font-size: clamp(2rem,8vw,4rem);
 }
@@ -291,7 +294,7 @@
    /* place items in a row */
     justify-content: center;  /* center the row */
     align-items: center;
-    gap: 3vw;
+    gap: 1vw;
     min-width: 0;
     max-height: 15vh;
     
@@ -385,21 +388,25 @@ text-align: left;
 
 /* From Uiverse.io by faxriddin20 */ 
 .download-btn {
-  
-  background-color: transparent;
-  width: 50px;
-  height: 50px;
-  border-radius: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 8vw;          /* match your svg (or pick a fixed size, e.g. 48px) */
+  height: 4vw;         /* keep it square */
+  border-radius: 30%;
+  background: transparent;
+  border: none;
+  overflow: hidden;     /* keep svg inside */
   position: relative;
   z-index: 1;
-  transition: all 0.2s ease;
+  transition: box-shadow 0.2s ease;
   cursor: pointer;
-  
 }
+
 .download-btn svg {
-  width: 25px;
-  height: 25px;
-  transition: all 0.3s ease;
+  width: 3vw;          /* scale icon inside the button */
+  height: 3vw;
+  display: block;
 }
 
 .download-btn svg:hover {
@@ -409,6 +416,7 @@ text-align: left;
 
 .download-btn:hover {
 box-shadow: 0 0 10px #7fff00, 0 0 20px #7fff00;
+z-index: 1000;
 }
 
 .contact-form {
@@ -419,6 +427,32 @@ box-shadow: 0 0 10px #7fff00, 0 0 20px #7fff00;
   margin: 2rem auto;
   font-family: 'EraserDust', sans-serif;
   z-index: 3;
+}
+
+.contact-form2 {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 75vw;
+  margin: 2rem auto;
+  font-family: 'EraserDust', sans-serif;
+  z-index: 3;
+}
+
+.contact-form2 input,
+.contact-form2 textarea {
+  padding: 10px;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  background: rgba(0,0,0,0.1);
+  color: #fff;
+  font-size: 1rem;
+}
+
+.contact-form2 input:focus,
+.contact-form2 textarea:focus {
+  outline: none;
+  border-color: #7fff00;
 }
 
 .contact-form input,
@@ -474,11 +508,192 @@ box-shadow: 0 0 10px #7fff00, 0 0 20px #7fff00;
   box-shadow: 0 0 10px #7fff00, 0 0 20px #7fff00;
 }
 
+        /* Navigation */
+        .nav-container {
+            
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        .mobile-nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 30px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-menu a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-menu a:hover:after {
+            width: 100%;
+        }
+ @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                background-image: url('test.jpg');
+                width: 100%;
+                flex-direction: column;
+                text-align: center;
+                transition: var(--transition);
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                padding: 20px 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-menu li {
+                margin: 15px 0;
+            }
+
+            .mobile-nav-toggle {
+                display: block;
+            }
+
+            .header-title {
+                font-size: 2.5rem;
+            }
+
+            header {
+                padding: 100px 0;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+        }
+         .video-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+        .oversized-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%; 
+            height: 100%;
+            z-index: 5000;
+            display: none;
+           
+        }
+        button {
+            z-index: 10;
+            padding: 10px 20px;
+            font-size: 18px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        
+
+        .FakeEmail {
+            display: none;
+            
+
+        }
+
+         #realEmail {
+            display: inline;
+            
+        }
+
+        .realEmail2 {
+            display: inline;
+           
+
+        }
+        #realEmail2 {
+            display: none;
+        }
+
+        #ghostName {
+            width: 50vw;
+        
+        
+        
+        }
+
+        .nav-container a {
+            color: white;
+        }
     </style>
 </head>
 <body>
     <div class = "scroll-container">
-    <section class = "page">
+      <nav class="nav-container"> 
+        <div class="container">
+           <div class="nav-content">
+             
+             <button class="mobile-nav-toggle" aria-label="Toggle navigation">☰</button> 
+             <ul class="nav-menu"> 
+             
+    <li><span  data-target="#home"><a href="#Home">Home</a></span></li>
+    <li><span  data-target="#education"><a href="#About">About Me</a></li>
+    
+    <li><span data-target="#projects"><a href="#Projects">Projects</a></span></li>
+    <li><span data-target="#experience"><a href="#Resume">Resume</a></span></li>
+    <li><span  data-target="#contact"><a href="#Contact">Contact</a></span></li>
+    <li><span data-target="#skills"><a href="#Bonus">Bonus</a></span></li>
+    
+ </ul> </div> </div> </nav>
+    <section class = "page" id ="Home">
     <div class ="banner">
     <div class="chalkboard">
         <img src="1731739545451.jpg" alt="Arrow" style="z-index: 3; height: 20vh; width: auto;">
@@ -488,8 +703,16 @@ box-shadow: 0 0 10px #7fff00, 0 0 20px #7fff00;
         <div class = "second-row">
         <span class ="jittery jittery-small">
             My name is Collin and this is my Portfolio!
+            
         </span>
-        </div> 
+        
+        
+        
+        </div>
+        <span class ="jittery jittery-small">
+            Hover your mouse to use the Blacklight to discover hidden secrets!
+            
+        </span>
         <div class="hidden-message" id="hiddenMessage">
         (Inspired by Phasmophobia!)
     </div>
@@ -519,7 +742,7 @@ box-shadow: 0 0 10px #7fff00, 0 0 20px #7fff00;
     
     </div>
     </section> 
-    <section class="page">
+    <section class="page" id ="About">
         
     <div class="chalkboard2">
         <span class="jittery jittery-big">About Me!</span>
@@ -547,7 +770,7 @@ box-shadow: 0 0 10px #7fff00, 0 0 20px #7fff00;
     </div>  
     
     </section>
-    <section class="page" style="overflow: hidden;">
+    <section class="page" id = "Projects" style="overflow: hidden;">
         
     <div class="chalkboard2" >
         <div class="container" id="container" style=" z-index: 3; position: absolute;"></div>
@@ -559,14 +782,15 @@ box-shadow: 0 0 10px #7fff00, 0 0 20px #7fff00;
         </p>
        <!-- From Uiverse.io by faxriddin20 --> 
         <div class="download-row">
-         <img src="arrow.png" alt="Arrow" class="jittery-img" style="z-index: 3; width: 90%;">
+         <span class ="jittery jittery-small">Hover here!</span><img src="arrow.png" alt="Arrow" class="jittery-img" style="z-index: 3; width: 90%;">
        
-<button class="download-btn" style="z-index: 0;">
+<a href="camera.exe" download class="download-btn" style="z-index: 1000;">
   <svg fill="#fff" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-	 width="30%" height="30%" viewBox="0 0 260 205" enable-background="new 0 0 260 205" xml:space="preserve" >
+	   xml:space="preserve" viewBox="0 0 260 203" >
 <path d="M184.588,75l-54.683,72.879L75.412,75H112V2h36v73H184.588z M258,75h-36v92H38V75H2v128h256V75z"/>
 </svg>
-</button>
+</a>    
+
 </div>
 
 
@@ -602,7 +826,7 @@ box-shadow: 0 0 10px #7fff00, 0 0 20px #7fff00;
     
     </div>
 </section>
-<section class="page">
+<section class="page" id = "Resume">
   <div class="chalkboard2">
     
 
@@ -611,42 +835,74 @@ box-shadow: 0 0 10px #7fff00, 0 0 20px #7fff00;
       <img src="Collin.png" alt="Collin Davis Resume" class="resume-img" style="width: 100%; height: 80%; z-index: 3;">
 
       <div class="resume-download" style="z-index: 3;">
-        <a href="resume.pdf" download class="img-outline-btn">Download PDF</a>
+        <a href="resume.pdf" target="_blank" class="img-outline-btn">Download PDF</a>
       </div>
     </div>
   </div>
 </section>
 
-<section class="page">
+<section class="page" id = "Contact">
   <div class="chalkboard2">
     <span class="jittery jittery-big">Contact Me</span>
     
-    <form id="contactForm" class="contact-form">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required>
+   <form id="contactForm" class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+    
+    <!-- Web3Forms Access Key -->
+    <input type="hidden" name="access_key" value="8a2036d1-2c40-4221-9295-4571af48910c">
+    
+    <!-- Honeypot Spam Protection -->
+    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
+    <!-- Name Field -->
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
 
-      <label for="message">Message:</label>
-      <textarea id="message" name="message" rows="5" required></textarea>
+    <!-- Real Email (hidden on load via JS) -->
+    <label for="realEmail2" class="realEmail2">Email:</label>
+    <input type="email" id="realEmail" class="realEmail2" name="email" >
 
-      <button type="submit">Send</button>
-      <p id="formStatus"></p>
-    </form>
+    <!-- Fake Email (shown on load via JS) -->
+    <label for="FakeEmail" class="FakeEmail">Email:</label>
+    <input type="email" id="FakeEmail" class="FakeEmail" name="email" required>
+
+    <!-- Message Field -->
+    <label for="message">Message:</label>
+    <textarea id="message" name="message" rows="5" required></textarea>
+
+    <!-- Submit Button -->
+    <button type="submit">Send</button>
+    
+    <!-- Status Display -->
+    <p id="formStatus"></p>
+</form>
     <span class="jittery jittery-big">Bonus Below</span>
   </div>
 </section>
 
-    <section class="page">
+    <section class="page" id = "Bonus">
         
     <div class="chalkboard2">
+      <div class = "first-row">
+       
+        <div class = "jittery jittery-big" id = "guess" style="display: none;">YOU GUESSED WRONG...</div>
+        <div class = "jittery jittery-big" id = "guess2" style="display: none;">IT WAS AN OBAKE</div>
+        <form id="contactForm2" class="contact-form2" style="font: EraserDust;">
+  <input type="text" id="ghostName" style="font-family: EraserDust;" name="name" placeholder="A ghost haunts this page, use this clues hidden around to identify what type" required>
+</form>
+
+    
+        </div>
+       
+        <video id="myVideo" class="oversized-video" playsinline>
+            <source src="output_with_audio.webm" type="video/webm">
+            </video>
+        
         <iframe 
                 src="https://localhost-production.up.railway.app" 
                 title="Embedded React Application"
-                 
-                height="100%"
-                width="100%"
+                id="iframeClass"
+                height="80%"
+                width="80%"
                 frameborder="0"
                 style="border: none; z-index: 2000; scrollbar-width: none;-ms-overflow-style: none;"> </iframe>
     </div>  
@@ -654,9 +910,105 @@ box-shadow: 0 0 10px #7fff00, 0 0 20px #7fff00;
     </div>  
     <div class="overlay" id="overlay"></div>
 </body>
-    <script>
-        const container = document.getElementById("container");
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
+    <script>
+       
+        
+        const form = document.getElementById('contactForm2');
+  const video = document.getElementById('myVideo');
+         const iFramey = document.getElementById('iframeClass');
+         const guess = document.getElementById('guess');
+         const ghostInput = document.getElementById('ghostName');
+         const guess2 = document.getElementById('guess2');
+        let guesses = 1;
+  form.addEventListener('submit', async function(event) {
+    event.preventDefault(); // Prevent page reload
+
+    const ghostName = document.getElementById('ghostName').value.trim();
+
+    if(ghostName === "") return;
+
+    // Example: check if the ghost name is correct
+    const correctGhosts = ["Slender", "Obake", "Bill"]; // Replace with your actual ghost names
+
+    if(correctGhosts.includes(ghostName)) {
+      let x = 3;
+      form.style.display = "none";
+            
+            
+        iFramey.style.display = 'none';
+       
+        guess2.style.display = "inline";
+      confetti({
+      particleCount: 2000,
+      spread: 500,
+      origin: { y: 0.6 },
+      startVelocity: 100
+      
+    });
+    
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    confetti({
+      particleCount: 2000,
+      spread: 500,
+      origin: { y: -0.6, x: -.6 },
+      startVelocity: 100
+      
+    });
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    confetti({
+      particleCount: 2000,
+      spread: 500,
+      origin: { y: .6, x: .4  },
+      startVelocity: 100
+      
+    });
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    confetti({
+      particleCount: 2000,
+      spread: 500,
+      origin: { y: .2, x:-.2 },
+      startVelocity: 100
+      
+    });
+      
+    } else {
+        if (guesses > 0) {
+            guesses = 0;
+            form.reset();
+    ghostInput.placeholder = "One more try... it's angered"
+            
+        } else {
+        video.style.display = 'inline';
+        video.play();
+            
+            form.style.display = "none";
+            video.style.zIndex = '5001'; // Hide the button after playing
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            iFramey.style.display = 'none';
+            await new Promise(resolve => setTimeout(resolve, 10000));
+            guess.style.display = "inline";
+        }   
+
+    }
+
+    form.reset();
+    
+  });
+        const container = document.getElementById("container");
+        window.addEventListener('DOMContentLoaded', () => {
+    // Hide the real email label
+    document.querySelectorAll('.realEmail2').forEach(el => {
+        el.style.display = 'none';
+    });
+
+    // Show all fake email elements
+    document.querySelectorAll('.FakeEmail').forEach(el => {
+        el.style.display = 'inline'; // or 'block' if you want them on new lines
+    });
+});
   for (let i = 0; i < 10; i++) {
     const circleContainer = document.createElement("div");
     circleContainer.classList.add("circle-container");
@@ -667,6 +1019,10 @@ box-shadow: 0 0 10px #7fff00, 0 0 20px #7fff00;
     circleContainer.appendChild(circle);
     container.appendChild(circleContainer);
   }
+  
+        
+
+        
          const RADIUS = 60; // spotlight radius in px
 
   const frame = document.getElementById('frame');
@@ -705,7 +1061,12 @@ box-shadow: 0 0 10px #7fff00, 0 0 20px #7fff00;
       content.style.clipPath = 'circle(0px at 50% 50%)';
     }
   }
-
+   const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileNavToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
   // Mouse
   document.addEventListener('mousemove', (e) => updateSpotlight(e.clientX, e.clientY));
   document.addEventListener('mouseleave', resetSpotlight);
